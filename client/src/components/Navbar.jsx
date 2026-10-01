@@ -97,23 +97,6 @@ const Navbar = ({ currentPage, onNavigate }) => {
         >
           🛡️ Staff View: Shadow Queue
         </button>
-        <button
-          type="button"
-          onClick={() => onNavigate?.('home')}
-          style={{
-            background: currentPage === 'home' ? '#3a8394' : 'transparent',
-            color: '#fff',
-            border: 'none',
-            padding: '8px 14px',
-            borderRadius: '999px',
-            fontWeight: 700,
-            fontSize: '0.85rem',
-            cursor: 'pointer',
-            transition: 'background 0.15s ease'
-          }}
-        >
-          API Status
-        </button>
       </nav>
     </header>
   );

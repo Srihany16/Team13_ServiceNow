@@ -12,7 +12,7 @@ export default function ShadowQueueCard({ student, onViewProfile }) {
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <span style={{ fontSize: '1.25rem', fontWeight: 900, color: '#17424b' }}>
-              {studentId}
+              {studentId === 'STU001' ? `Prashant (${studentId})` : studentId}
             </span>
             <span
               style={{

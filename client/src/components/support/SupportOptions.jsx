@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import SupportServiceCard from './SupportServiceCard';
-import FriendFirstSupport from './FriendFirstSupport';
 import LoadingState from '../common/LoadingState';
 import { getStudentSupport, createSupportAction, SUPPORT_FALLBACK } from '../../services/supportApi';
 import './support.css';
@@ -125,9 +124,6 @@ export default function SupportOptions({ studentId = 'STU001', onActionTaken }) 
           />
         ))}
       </div>
-
-      {/* Friend-First Alternative */}
-      <FriendFirstSupport studentId={studentId} onSent={onActionTaken} />
     </section>
   );
 }

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import PressureForecast from '../components/pressure/PressureForecast';
 import AcademicSnapshot from '../components/academic/AcademicSnapshot';
 import { WellbeingSection } from './WellbeingPage';
 import SupportOptions from '../components/support/SupportOptions';
+import StudentOnboardingCheckIn from '../components/wellbeing/StudentOnboardingCheckIn';
 import LoadingState from '../components/common/LoadingState';
 import ErrorState from '../components/common/ErrorState';
 import { getPressureForecast, getAcademicData, PRESSURE_FALLBACK } from '../services/pressureApi';
 
 export default function StudentDashboard({ studentId = 'STU001' }) {
+  const [studentName, setStudentName] = useState('Prashant');
   const [state, setState] = useState({
     loading: true,
     error: null,
@@ -94,25 +95,25 @@ export default function StudentDashboard({ studentId = 'STU001' }) {
               letterSpacing: '-0.5px'
             }}
           >
-            Student Workload & Pressure
+            {studentName}'s Student Dashboard
           </h1>
           <p style={{ margin: 0, color: '#3a8394', fontSize: '0.95rem', fontWeight: 600 }}>
-            RIPPLE doesn’t wait for the crisis. It sees the pressure coming first.
+            Welcome back, {studentName}. Track your weekly rhythm, academic signals, and support pathways.
           </p>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <span
             style={{
-              fontSize: '0.8rem',
-              fontWeight: 700,
-              padding: '6px 14px',
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              padding: '6px 16px',
               borderRadius: '999px',
               backgroundColor: '#d3eef1',
               color: '#17424b'
             }}
           >
-            Student: STU001
+            Student: {studentName} ({studentId})
           </span>
           {state.offline && (
             <span
@@ -133,7 +134,7 @@ export default function StudentDashboard({ studentId = 'STU001' }) {
       </header>
 
       {/* Loading & Error States */}
-      {state.loading && <LoadingState message="Checking your upcoming week..." />}
+      {state.loading && <LoadingState message={`Loading your dashboard, ${studentName}...`} />}
 
       {state.error && (
         <ErrorState message={state.error} onRetry={loadDashboard} />
@@ -141,24 +142,23 @@ export default function StudentDashboard({ studentId = 'STU001' }) {
 
       {!state.loading && (
         <>
-          {/* SECTION A: MODULE 1 HERO FEATURE — Pressure Forecast (Hero + Calendar + Factors + Actions) */}
-          <PressureForecast data={state.pressure} />
+          {/* STEP 1: Quick Wellbeing Pulse Check & Name Form */}
+          <StudentOnboardingCheckIn
+            initialName={studentName}
+            onComplete={({ name }) => setStudentName(name)}
+          />
 
-          {/* SECTION B: Academic Workload Overview */}
-          <AcademicSnapshot data={state.academic} />
-
-          {/* SECTION C: MODULE 2 — Integrated Wellbeing Section */}
-          <div style={{ marginTop: '36px' }}>
-            <div style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <span style={{ fontSize: '1.25rem' }}>🌊</span>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#17424b', margin: 0 }}>
-                Weekly Wellbeing Check-in & History
-              </h2>
-            </div>
+          {/* STEP 2: Weekly Wellbeing Check-in & Ripple Matrix */}
+          <div>
             <WellbeingSection studentId={studentId} />
           </div>
 
-          {/* SECTION D: MODULE 3 — Recommended Support & Friend-First Options */}
+          {/* SECTION B: Academic Workload Overview */}
+          <div style={{ marginTop: '36px' }}>
+            <AcademicSnapshot data={state.academic} />
+          </div>
+
+          {/* SECTION C: MODULE 3 — Recommended Support & Friend-First Options */}
           <div style={{ marginTop: '36px' }}>
             <SupportOptions studentId={studentId} />
           </div>

@@ -40,7 +40,7 @@ export default function StudentSupportProfile({ studentId = 'STU001', onClose })
             Unified Student Profile
           </span>
           <h3 style={{ margin: '4px 0', fontSize: '1.4rem', fontWeight: 900, color: '#17424b' }}>
-            Student {studentId}
+            Student Prashant ({studentId})
           </h3>
           <p style={{ margin: 0, fontSize: '0.88rem', color: '#55737a' }}>
             Centralized support context — prevents students from having to re-explain their situation.
